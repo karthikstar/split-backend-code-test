@@ -106,6 +106,37 @@ API route tickets/crashApp will cause the app process to crash
 
 Provide a solution to restart the app instance if it crashes. 
 
+# Assignment 5
+
+Task: 
+You're now given a string containing characters from a-z, determine if the input string is valid
+An input string is valid if:
+Open character must be closed by the same type of character.
+Open character must be closed in the correct order.
+
+Eg input =  "aabbcc"
+   
+output of res.json({"compile":"true"})
+
+Eg input =  "aabdbcc"  // 'b' can't be closed
+   
+output of res.json({"compile":"false"})
+
+Eg input =  "caca" // 'a','c' can't be closed
+   
+output of res.json({"compile":"false"})
+
+Eg input =  "caabbddc"
+   
+output of res.json({"compile":"true"})
+
+Eg input =  "acca"
+   
+output of res.json({"compile":"true"})
+
+Eg input =  "cabbaddc"
+   
+output of res.json({"compile":"true"})
 
 # Running the project
 
