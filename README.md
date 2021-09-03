@@ -112,7 +112,9 @@ Task:
 You're now given a string containing characters from a-z, determine if the input string is valid
 
 An input string is valid if:
+
 Open character must be closed by the same type of character.
+
 Open character must be closed in the correct order.
 
 Eg input =  "aabbcc"
