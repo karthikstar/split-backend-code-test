@@ -136,6 +136,20 @@ input =  "cabbaddc"
 ```
    
 Output of res.json: `({"compile":"true"})`
+***
+
+```
+input =  "caabddc" // b can't be closed
+```
+   
+Output of res.json: `({"compile":"false"})`
+***
+
+```
+input =  "caabdbdc" // b,d can't be closed
+```
+   
+Output of res.json: `({"compile":"false"})`
 
 # Running the project
 
