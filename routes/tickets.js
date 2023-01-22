@@ -15,14 +15,25 @@ router.post('/oneSettlementPerWeek', function(req, res, next) {
     let endDate = moment(req.body['end'],'DD-MM-YYYY')
     
     //add changes below
+    // Calculate paymentDate which is following Monday after the end date
+    let paymentDate = endDate.day("Monday").add(1,"week")
     
-    res.json({"paymentDate":moment().format('DD-MM-YYYY')})
+    res.json({"paymentDate":paymentDate.format('DD-MM-YYYY')})
 });
 router.post('/twoSettlementPerWeek', function(req, res, next) {
     let endDate = moment(req.body['end'],'DD-MM-YYYY')
 
      //add changes below
-    res.json({"paymentDate":moment().format('DD-MM-YYYY')})
+     // Calculate paymentDate based on whether tickets were purchased btwn Mon - Wednesday or Thursday - Sunday
+    let paymentDate;
+
+    if(endDate.day() >= 1 && endDate.day() <= 3) {
+        paymentDate = endDate.day("Thursday");
+    } else {
+        paymentDate  = end.day("Monday").add(1,"week");
+    }
+
+    res.json({"paymentDate":paymentDate.format('DD-MM-YYYY')})
 });
 router.post('/calculateSettlementAmount', function(req, res, next) {
     //add changes below
