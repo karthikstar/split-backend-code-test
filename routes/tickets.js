@@ -30,14 +30,28 @@ router.post('/twoSettlementPerWeek', function(req, res, next) {
     if(endDate.day() >= 1 && endDate.day() <= 3) {
         paymentDate = endDate.day("Thursday");
     } else {
-        paymentDate  = end.day("Monday").add(1,"week");
+        paymentDate  = endDate.day("Monday").add(1,"week");
     }
 
     res.json({"paymentDate":paymentDate.format('DD-MM-YYYY')})
 });
 router.post('/calculateSettlementAmount', function(req, res, next) {
     //add changes below
-    res.json({"totalSum": 123})
+    let tickets = req.body;
+
+    let total = 0;
+
+    // Calculate total reimbursement after deducting fee
+    tickets.forEach((ticket) => {
+        let price = ticket.price;
+        let mdr = ticket.MDR;
+        total += price * (1 - (mdr/100));
+    })
+
+    // Round up total value to 2 decimal points
+    total = Math.ceil(total * 100) / 100;
+
+    res.json({"totalSum": total});
 });
 
 
