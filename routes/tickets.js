@@ -149,17 +149,8 @@ router.delete('/:ticketId', function(req, res, next) {
 // db.close()
 
 /*
-Provide a solution to restart the app instance if it crashes.
-
-
-
-*/
-
-
-
-/*
 Assignment 4
-Ensure the nodejs app process restart itself when it crash
+Provide a solution to restart the app instance if it crashes.
 
 We can use a process manager such as PM2.
 
