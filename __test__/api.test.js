@@ -75,7 +75,7 @@ describe('Two Settlment Per Week API TEST #4 ', () => {
     })
 })
 
-
+// Test Cases for Assignment 3
 describe('Calculate Settlment Amount TEST #1 ', () => {
     it('Testcase 9: Expect totalSum to be 521.24', async () => {
         const res = await request(app)
@@ -126,3 +126,57 @@ describe('Calculate Settlment Amount TEST #1 ', () => {
         expect(res.body.totalSum).toEqual(933.76)
     })
 })
+
+describe('GET /tickets Test #1', () => {
+    it('Testcase 11: expect response to be an array of tickets', async () => {
+        const res = await request(app).get('/tickets');
+        expect(res.statusCode).toEqual(200);
+        expect(Array.isArray(res.body)).toBeTruthy();
+    });
+});
+
+describe('POST /tickets Test #1', () => {
+    it('Testcase 12: expect response message to be Ticket has been created successfully.', async () => {
+        let ticket = {
+            "ticketId": "TES2312-32",
+            "price": 203.10,
+            "MDR" : 2.10,
+            "currency": "SGD",
+            "travelAgentName": "SPLIT-TEST-AGENT01"
+        }
+        const res = await request(app)
+            .post('/tickets')
+            .send(ticket)
+            expect(res.statusCode).toEqual(200);
+            expect(res.body.ticket).toEqual(ticket);
+            expect(res.body.message).toEqual("Ticket has been created successfully." )
+        });
+})
+
+describe('PUT /tickets/:ticketId Test #1', () => {
+    it('Testcase 13: expect response message to be Ticket has been updated successfully.', async () => {
+        let ticket = {
+            "ticketId": "TES2312-32",
+            "price": 220.40,
+            "MDR" : 2.30,
+            "currency": "SGD",
+            "travelAgentName": "SPLIT-TEST-AGENT01"
+        }
+        const res = await request(app)
+            .put('/tickets/TES2312-32')
+            .send(ticket)
+            expect(res.statusCode).toEqual(200);
+            expect(res.body.ticket).toEqual(ticket);
+            expect(res.body.message).toEqual("Ticket has been updated successfully." )
+        });
+});
+
+describe('DELETE /tickets/:ticketId Test #1', () => {
+    it('Testcase 14: expect response message to be Ticket has been deleted successfully.', async () => {
+        let ticketId = "TES2312-32"
+        const res = await request(app).delete(`/tickets/${ticketId}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body.ticketId).toEqual(ticketId)
+        expect(res.body.message).toEqual("Ticket has been deleted successfully." )
+    });
+});
