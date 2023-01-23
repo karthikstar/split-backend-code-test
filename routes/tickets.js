@@ -10,6 +10,7 @@ https://momentjs.com/
 
 */
 
+// Assignments 1 and 2
 router.post('/oneSettlementPerWeek', function(req, res, next) {
     // use req.body to get JSON of start and end dates. We are only concerned with end dates.
     let endDate = moment(req.body['end'],'DD-MM-YYYY')
@@ -160,7 +161,13 @@ We can use a process manager such as PM2.
 
 - We can verify that the app is running and is monitored by PM2, by using `pm2 list`
 - Can check logs of app by using `pm2 logs`
+
+Alternative Suggestions:
+1. Use cloud services like AWS Elastic Beanstalk, which can automatically detect and recover from crashes
+2. Can use Docker to containerize the application and use restart policy which will ensure container always restarts when it crashes
+
 */
+
 
 //Custom GET API that will crash the app
 router.get('/crashApp', function(req, res, next) {
@@ -174,3 +181,35 @@ router.get('/crashApp', function(req, res, next) {
 
 
 module.exports = router;
+
+// Assignment 5
+// Can run on my replit to test this out - https://replit.com/@ElangovanKarthi/IrresponsibleBelovedCgibin#index.js
+function isValid(s) {
+    // Create a dictionary to store alphabets and their corresponding count
+    let alphabets = "abcdefghijklmnopqrstuvwxyz"
+    let alphabetsArray = alphabets.split("")
+    let alphabetsDict = {}
+    alphabetsArray.forEach((alphabet) => {
+      alphabetsDict[alphabet] = 0
+    })
+  
+    // Create a stack using array
+    let stack = []
+  
+    for (i = 0; i < s.length; i++) {
+      let charOnTopOfStack = stack[stack.length - 1]
+      // If encounter an opening character aka has 0 count in the dict, push it onto the stack and increment its corresp. count in the dict
+      if (alphabetsDict[s[i]] == 0) {
+        stack.push(s[i])
+        alphabetsDict[s[i]] += 1
+      } // If theres already count 1 for the character, attempt to close, if the char on top of stack is equal to the target char
+      else if (alphabetsDict[s[i]] == 1 && charOnTopOfStack == s[i]) {
+        stack.pop()
+        alphabetsDict[s[i]] -= 1
+      } else return JSON.stringify({ compile: false })
+    }
+  
+    // Check if stack is empty. if empty, then string is valid. else string is not.
+    return stack.length ? JSON.stringify({ compile: false }): JSON.stringify({ compile: true })
+  }
+  
